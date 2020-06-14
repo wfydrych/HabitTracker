@@ -1,0 +1,101 @@
+=multiDivBox
+    width: 80%
+    height: auto
+    display: flex
+    margin: 15px 0px
+    margin-left: 10%
+    justify-content: space-evenly
+    
+.addBtn
+    position: fixed
+    display: block
+    margin-left: 50vw
+    transform: translateX(-50%)
+    width: 33vw
+    max-width: 120px
+    height: auto
+    bottom: 10px
+    cursor: pointer
+
+.addMenu
+    position: fixed
+    display: block
+    box-sizing: border-box
+    width: 90vw
+    height: auto
+    margin-left: 5vw
+    bottom: 80px
+    background-color: #ffffff
+    border-radius: 15px
+
+    &__header
+        display: block
+        text-align: center
+        font-size: 1em
+        width: 100%
+        padding: 10px
+        font-weight: 600
+
+    &__input
+        box-sizing: border-box
+        border: none
+        border-bottom: 1px solid #7C7C7C
+        font-size: 0.9em
+        padding: 2px 0px
+        width: 80%
+        margin-left: 10%
+        outline: none
+        margin-bottom: 15px
+
+    &__input::placeholder
+        color: #7C7C7C
+        font-family: 'Montserrat', sans-serif
+
+    &__input:focus
+        border-bottom: 1px solid black
+
+    &__colorSpan
+        color: #7C7C7C
+        font-size: 0.9em
+        margin-left: 10%
+
+    &__colors
+        +multiDivBox
+
+        &__dot
+            width: 35px
+            height: 35px
+            border-radius: 50%
+            cursor: pointer
+
+            &:nth-child(1)
+                background-color:#81D1FF
+
+            &:nth-child(2)
+                background-color:#FF8181
+
+            &:nth-child(3)
+                background-color:#FFDC81
+
+            &:nth-child(4)
+                background-color:#B8FF81
+
+            &:nth-child(5)
+                background-color:#B181FF
+
+    &__buttons
+        +multiDivBox
+
+        &__btn
+            background: #F4F4F4
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1)
+            border-radius: 15px
+            width: 30%
+            padding: 10px
+            text-align: center
+            font-size: 0.9em
+            font-weight: 600
+            cursor: pointer
+
+            &:hover
+                background: #c1c1c1
