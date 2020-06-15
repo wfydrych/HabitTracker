@@ -19,7 +19,7 @@
 
 .addMenu
     position: fixed
-    display: block
+    display: none
     box-sizing: border-box
     width: 90vw
     height: auto
@@ -27,6 +27,7 @@
     bottom: 80px
     background-color: #ffffff
     border-radius: 15px
+    z-index: 5
 
     &__header
         display: block
@@ -99,3 +100,7 @@
 
             &:hover
                 background: #c1c1c1
+
+.activeDot
+    box-sizing: border-box
+    border: 1px solid black

@@ -11,15 +11,17 @@ class Add extends Component {
         title: '',
         days: '',
         description: '',
-        color: ''
+        color: '#81D1FF'
     }
 
     handleShowHabitMenu = () => {
         document.querySelector('.addMenu').style.display = 'block'
+        document.querySelector('.body__blurClass').style.display = 'block'
     }
 
     handleHideHabitMenu = () => {
         document.querySelector('.addMenu').style.display = 'none'
+        document.querySelector('.body__blurClass').style.display = 'none'
     }
 
     handleTitleChange = e => {
@@ -44,7 +46,29 @@ class Add extends Component {
         this.setState({
             color: props
         })
-        
+        const dots = document.querySelectorAll('.addMenu__colors__dot')
+        dots.forEach(dot => {
+            dot.classList.remove('activeDot')
+        })
+        switch(props) {
+            case '#81D1FF': 
+                dots[0].classList.add('activeDot')
+                break
+            case '#FF8181': 
+                dots[1].classList.add('activeDot')
+                break
+            case '#FFDC81': 
+                dots[2].classList.add('activeDot')
+                break
+            case '#B8FF81': 
+                dots[3].classList.add('activeDot')
+                break
+            case '#B181FF': 
+                dots[4].classList.add('activeDot')
+                break
+            default:
+                break
+        }
     }
     
     render () {
@@ -58,7 +82,7 @@ class Add extends Component {
                 <input className='addMenu__input' value={this.state.description} onChange={this.handleDescriptionChange} placeholder='description' type='text'></input>
                 <span className='addMenu__colorSpan'>color</span>
                 <div className='addMenu__colors'>
-                    <div className='addMenu__colors__dot' onClick={this.handleColor.bind(this, '#81D1FF')}></div>
+                    <div className='addMenu__colors__dot activeDot' onClick={this.handleColor.bind(this, '#81D1FF')}></div>
                     <div className='addMenu__colors__dot' onClick={this.handleColor.bind(this, '#FF8181')}></div>
                     <div className='addMenu__colors__dot' onClick={this.handleColor.bind(this, '#FFDC81')}></div>
                     <div className='addMenu__colors__dot' onClick={this.handleColor.bind(this, '#B8FF81')}></div>

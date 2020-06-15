@@ -15,6 +15,7 @@ class App extends Component {
       <Menu></Menu>
       <List></List>
       <Add></Add>
+      <div className='body__blurClass'></div>
     </div>
   )}
 }
