@@ -38,16 +38,14 @@ class List extends Component {
         let i = 0
         circles.forEach(circle => {
             let prog = (((1 - (this.state.habits[i].progress / this.state.habits[i].target)) * 100) + 10) * (-1)
-            console.log(prog)
             circle.style.left = prog + '%'
-            circle.style.background = this.state.habits[i].color
-            i++
+            circle.style.background = this.state.habits[i++].color
         })
     }
 
     createHabitList() {
         const habits = this.state.habits.map(habit => {
-            return <MiniTask title={habit.title} description={habit.description} progress={habit.progress} target={habit.target} color={habit.color}></MiniTask>
+            return <MiniTask key={habit.title} title={habit.title} description={habit.description} progress={habit.progress} target={habit.target} color={habit.color}></MiniTask>
         })
         return habits
     }
