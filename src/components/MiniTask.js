@@ -5,8 +5,6 @@ import './MiniTask.sass'
 // const cookies = new Cookies()
 
 const MiniTask = props => {
-
-    console.log(props.progress/props.target)
     return (
         <Fragment>
             <div className='miniTask'>
