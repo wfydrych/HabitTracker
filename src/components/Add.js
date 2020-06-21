@@ -14,6 +14,17 @@ class Add extends Component {
         color: '#81D1FF'
     }
 
+    getDate = () => {
+        const time = new Date()
+        let date = time.getFullYear() + '-'
+        if (time.getMonth() < 10) date += '0'
+        date += time.getMonth() +1
+        date += '-'
+        if (time.getDate() < 10) date += '0'
+        date += time.getDate()
+        return date
+    }
+
     handleShowHabitMenu = () => {
         document.querySelector('.addMenu').style.display = 'block'
         document.querySelector('.body__blurClass').style.display = 'block'
@@ -74,7 +85,9 @@ class Add extends Component {
     render () {
     return (
         <Fragment>
-            <img src={addBtn} className='addBtn' alt='addBtn' onClick={this.handleShowHabitMenu} />
+            <div className='addBtnBg'>
+                <img src={addBtn} className='addBtn' alt='addBtn' onClick={this.handleShowHabitMenu} />
+            </div>
             <div className='addMenu'>
                 <span className='addMenu__header'>Add new habit</span>
                 <input className='addMenu__input' value={this.state.title} onChange={this.handleTitleChange} placeholder='title' type='text'></input>
