@@ -7,6 +7,17 @@ import dot_undone from './img/dot_undone.png'
 
 const cookies = new Cookies()
 
+const countDaysFromStart = props => {
+
+    let dateStart = new Date(props)
+    let dateToday = new Date()
+    dateStart.setHours(0)
+    dateToday.setHours(0)
+    dateToday.setMinutes(0)
+    dateToday.setSeconds(0)
+    return Math.round((dateToday.getTime() - dateStart.getTime()) / (1000 * 3600 * 24))
+}
+
 const middleHabit = props => {
     const mid = document.querySelectorAll('.habit')
     
@@ -23,11 +34,29 @@ const handleHabitDone = props => {
     let mid = cookies.get('habits')
     mid.forEach(habit => {
         if (habit.title === props.title) {
-            habit.prog[habit.prog.length-1] = true
+            const diff = countDaysFromStart(props.start)
+            habit.prog[diff-1] = true
+            console.log(habit.prog)
         }
     })
     cookies.set('habits', mid)
-    console.log(cookies.get('habits'))
+    chooseConfirm(mid)
+    // console.log(cookies.get('habits'))
+}
+
+const chooseConfirm = props => {
+    const mid = cookies.get('habits')
+    let ret = ''
+
+    mid.forEach(habit => {
+        if (habit.title === props.title) {
+            const diff = countDaysFromStart(habit.start)
+            if (habit.prog[diff-1] === true) ret = done
+            else ret = undone
+        }
+    })
+
+    return ret
 }
 
 const MiniTask = props => {
@@ -61,9 +90,10 @@ const MiniTask = props => {
                                 <img src={dot_undone} alt='dot'/>
                                 <img src={dot_undone} alt='dot'/>
                                 <img src={dot_undone} alt='dot'/>
+                                <span>More...</span>
                             </div>
                         </div>
-                        <img src={undone} onClick={handleHabitDone.bind(this, props.data)} className='middleHabit__done' alt='done'/>
+                        <img src={chooseConfirm(props)} onClick={handleHabitDone.bind(this, props.data)} className='middleHabit__done' alt='done'/>
                     </div>
                 </div>
             </div>
