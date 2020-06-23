@@ -39,8 +39,8 @@ const habits =  [
         progress: 45,
         target: 50,
         color: '#B8FF81',
-        start: '2020-06-20',
-        prog: [false, false]
+        start: '2020-05-20',
+        prog: []
     },
 ]
 

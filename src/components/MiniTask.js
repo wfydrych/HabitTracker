@@ -35,12 +35,16 @@ const handleHabitDone = props => {
     mid.forEach(habit => {
         if (habit.title === props.title) {
             const diff = countDaysFromStart(props.start)
-            habit.prog[diff-1] = true
+            if (habit.prog[diff] !== true) {
+                habit.prog[diff] = true
+                habit.progress++
+            }
+            
             console.log(habit.prog)
+            console.log(habit)
         }
     })
     cookies.set('habits', mid)
-    chooseConfirm(mid)
     // console.log(cookies.get('habits'))
 }
 
@@ -51,11 +55,10 @@ const chooseConfirm = props => {
     mid.forEach(habit => {
         if (habit.title === props.title) {
             const diff = countDaysFromStart(habit.start)
-            if (habit.prog[diff-1] === true) ret = done
+            if (habit.prog[diff] === true) ret = done
             else ret = undone
         }
     })
-
     return ret
 }
 
@@ -63,12 +66,12 @@ const MiniTask = props => {
     return (
         <Fragment>
             <div className='habit'>
-                <div className='miniHabit'>
+                <div  onClick={middleHabit.bind(this, props.data)}className='miniHabit'>
                     <div className='miniHabit__txt'>
                         <div className='miniHabit__txt__title'>{props.title}</div>
                         <div className='miniHabit__txt__description'>{props.description}</div>
                     </div>
-                    <div onClick={middleHabit.bind(this, props.data)} className='miniHabit__progress'>{props.progress}/{props.target}</div>
+                    <div className='miniHabit__progress'>{props.progress}/{props.target}</div>
                     <div className='miniHabit__circle'></div>
 
                     <div className='middleHabit'>

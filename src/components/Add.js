@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react'
-// import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie'
 import './Add.sass'
 import addBtn from './img/add_btn.png'
 
-// const cookies = new Cookies()
+const cookies = new Cookies()
 
 class Add extends Component {
 
@@ -81,6 +81,37 @@ class Add extends Component {
                 break
         }
     }
+
+    handleAddHabit = () => {
+        const data = {
+            title: this.state.title, 
+            start: this.getDate(), 
+            target: this.state.days,
+            progress: 0,
+            description: this.state.description,
+            color: this.state.color,
+            prog: [false]
+        }
+
+        const err = document.querySelector('.err')
+        err.innerHTML = ''
+
+        if (data.title.length > 3) 
+        {
+            if (data.target > 0)
+            {
+                let habits = cookies.get('habits')
+                if (habits === undefined) cookies.set('habits', habits)
+                else {
+                    habits.push(data)
+                    cookies.set('habits', habits)
+                    window.location.reload()
+                }
+            }
+            else err.innerHTML = 'Choose length of habit!'
+        }
+        else err.innerHTML = 'Habit must have at least 3 signs!'
+    }
     
     render () {
     return (
@@ -102,9 +133,10 @@ class Add extends Component {
                     <div className='addMenu__colors__dot' onClick={this.handleColor.bind(this, '#B181FF')}></div>
                 </div>
                 <div className='addMenu__buttons'>
-                    <div className='addMenu__buttons__btn'>Add</div>
+                    <div className='addMenu__buttons__btn' onClick={this.handleAddHabit}>Add</div>
                     <div className='addMenu__buttons__btn' onClick={this.handleHideHabitMenu}>Close</div>
                 </div>
+                <span className='err'></span>
             </div>
         </Fragment>
     )}
