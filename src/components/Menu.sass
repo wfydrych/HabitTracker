@@ -1,13 +1,54 @@
+=menuOpt
+    display: none
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    background: #E5E5E5
+    z-index: 20
+
+    &__title
+        width: calc(100% - 40px)
+        padding: 20px
+        margin-top: 20px
+        font-weight: 600
+        font-size: 2em
+        text-align: center
+
+    &__txt
+        padding: 10px
+        width: calc(100% - 10px)
+        text-align: center
+
+    &__closeBtn
+        background: #F4F4F4
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1)
+        border-radius: 15px
+        width: 50%
+        padding: 10px
+        text-align: center
+        font-size: 0.9em
+        font-weight: 600
+        cursor: pointer
+        position: fixed
+        top: 80vh
+        margin-left: 50%
+        transform: translateX(-50%)
+        transition: .5s
+
+        &:hover
+            background: #c1c1c1
+    
 .menu
     position: fixed
     top: 0
     width: 100vw
-    height: auto
+    height: 40px
     box-sizing: border-box
     display: flex
     justify-content: space-between
     padding: 5px
-    margin-bottom: 10px
     background-color: #E5E5E5
     z-index: 5
 
@@ -19,3 +60,41 @@
     &__Btn
         display: block
         cursor: pointer
+        height: 30px
+
+.menuSlider
+    display: none
+    position: absolute
+    box-sizing: border-box
+    top: 40px
+    left: 0
+    width: 100%
+    height: auto
+    padding: 20px
+    background: #b9b9b9
+    z-index: 10
+
+    & ul 
+        list-style-type: none
+        margin: 0
+        padding: 0
+
+        & li
+            display: block
+            cursor: pointer
+            text-align: center
+            padding: 5px
+            border-bottom: 1px solid #b9b9b9
+            transition: .5s
+            font-weight: 600
+            font-size: 1.2em
+            text-transform: uppercase
+
+            &:hover
+                border-bottom: 1px solid black
+
+.about
+    +menuOpt      
+
+.contact
+    +menuOpt

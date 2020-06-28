@@ -4,8 +4,20 @@ import './MiniTask.sass'
 import done from './img/habit_done.png'
 import undone from './img/habit_undone.png'
 import dot_undone from './img/dot_undone.png'
+import dot_done from './img/dot_done.png'
+import dot_grey from './img/dot_grey.png'
 
 const cookies = new Cookies()
+
+const weekdays = [
+    ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+    ['Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo'],
+    ['We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu'],
+    ['Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We'],
+    ['Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th'],
+    ['Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr'],
+    ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+]
 
 const countDaysFromStart = props => {
 
@@ -48,6 +60,62 @@ const handleHabitDone = props => {
     // console.log(cookies.get('habits'))
 }
 
+const fillDays = () => {
+    let dateToday = new Date()
+    let day = dateToday.getDay()
+    const daysTable = weekdays[day].map(day => {
+        return <span>{day}</span>
+    })
+    return daysTable
+}
+
+const fillDots = props => {
+    const diff = countDaysFromStart(props.start) + 1
+    let long = props.prog.length
+    let i = 0
+    let dots = ''
+
+    if (diff > long) {
+        if (long > 6) {
+            dots = props.prog.slice(long-6)
+            dots.push(false)
+        }
+        
+        else {
+            dots = props.prog
+            dots.push(false)
+            i = 7 - dots.length
+            for (let x = 0; x < i; x++) {
+                dots.unshift(false)
+            }
+        }
+    }
+
+    else {
+        if (long > 7) dots = props.prog.slice(long-7)
+        
+        else {
+            dots = props.prog
+            i = 7 - dots.length
+            for (let x = 0; x < i; x++) {
+                dots.unshift(false)
+            }
+        }
+    }   
+
+    const days = dots.map(day => {
+        if (i !== 0) {
+            i--
+            return <img src={dot_grey} alt="dot"/>
+        }
+        else {
+            if (day === true) return <img src={dot_done} alt="dot"/>
+            else return <img src={dot_undone} alt="dot"/>
+        }
+    })
+    return days
+}
+
 const chooseConfirm = props => {
     const mid = cookies.get('habits')
     let ret = ''
@@ -66,7 +134,7 @@ const MiniTask = props => {
     return (
         <Fragment>
             <div className='habit'>
-                <div  onClick={middleHabit.bind(this, props.data)}className='miniHabit'>
+                <div  onClick={middleHabit.bind(this, props.data)} className='miniHabit'>
                     <div className='miniHabit__txt'>
                         <div className='miniHabit__txt__title'>{props.title}</div>
                         <div className='miniHabit__txt__description'>{props.description}</div>
@@ -77,22 +145,10 @@ const MiniTask = props => {
                     <div className='middleHabit'>
                         <div className='middleHabit__txt'>
                             <div className='middleHabit__txt__week'>
-                                <span>Mo</span>
-                                <span>Tu</span>
-                                <span>We</span>
-                                <span>Th</span>
-                                <span>Fr</span>
-                                <span>Sa</span>
-                                <span>Su</span>
+                                {fillDays()}
                             </div>
                             <div className='middleHabit__txt__dots'>
-                                <img src={dot_undone} alt='dot'/>
-                                <img src={dot_undone} alt='dot'/>
-                                <img src={dot_undone} alt='dot'/>
-                                <img src={dot_undone} alt='dot'/>
-                                <img src={dot_undone} alt='dot'/>
-                                <img src={dot_undone} alt='dot'/>
-                                <img src={dot_undone} alt='dot'/>
+                                {fillDots(props.data)}
                                 <span>More...</span>
                             </div>
                         </div>

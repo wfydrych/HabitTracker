@@ -101,7 +101,12 @@ class Add extends Component {
             if (data.target > 0)
             {
                 let habits = cookies.get('habits')
-                if (habits === undefined) cookies.set('habits', habits)
+                if (habits === undefined) {
+                    let habit = []
+                    habit.push(data)
+                    cookies.set('habits', habit)
+                    window.location.reload()
+                }
                 else {
                     habits.push(data)
                     cookies.set('habits', habits)
