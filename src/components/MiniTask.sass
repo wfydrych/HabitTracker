@@ -1,3 +1,29 @@
+=btns
+    &__buttons
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: space-evenly
+        margin-top: 10px
+        width: 100%
+
+        &__btn
+            background: #F4F4F4
+            display: inline-block
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1)
+            border-radius: 15px
+            width: 30%
+            padding: 5px
+            margin: 5px
+            text-align: center
+            font-size: 0.8em
+            font-weight: 100
+            cursor: pointer
+            transition: .5s
+
+            &:hover
+                background: #c1c1c1
+    
 .habit
     width: 90%
     margin-left: 5%
@@ -20,6 +46,10 @@
             font-weight: 600
             font-size: 1em
             margin: 10px
+
+            &:hover
+                cursor: pointer
+                text-decoration: underline
 
         &__description
             font-size: 0.6em
@@ -81,6 +111,10 @@
                 margin-left: 5px
                 font-size: 0.7em
 
+                &:hover
+                    cursor: pointer
+                    text-decoration: underline
+
     &__done
         position: relative
         top: 0
@@ -88,3 +122,67 @@
         align-self: center
         margin-right: 10px
         cursor: pointer
+
+.options
+    display: none
+    flex-basis: 100%
+    margin-top: 5px
+    z-index: 2
+    padding: 5px
+    padding-bottom: 10px
+    flex-direction: row
+    flex-wrap: wrap
+    position: relative
+
+    &__progress
+        font-size: 0.8em
+
+    +btns
+
+.edit
+    position: fixed
+    display: none
+    box-sizing: border-box
+    width: 86vw
+    max-height: 70vh
+    margin-left: 2vw
+    top: 10vh
+    background-color: #ffffff
+    border-radius: 15px
+    z-index: 25
+    overflow-x: hidden
+    overflow-y: scroll
+    padding-bottom: 20px
+
+    &__title
+        display: block
+        padding: 10px
+        width: 100%
+        font-weight: 600
+        text-align: center
+
+    &__input
+        box-sizing: border-box
+        border: none
+        border-bottom: 1px solid #7C7C7C
+        font-size: 0.9em
+        padding: 2px 0px
+        width: 80%
+        margin-left: 10%
+        outline: none
+        margin-bottom: 15px
+
+    &__checkboxes
+        display: flex
+        width: 100%
+        flex-direction: row
+        justify-content: space-evenly
+        flex-wrap: wrap
+
+    & label
+        text-align: center
+        display: inline-block
+        padding: 3px
+        width: 40%
+
+    +btns

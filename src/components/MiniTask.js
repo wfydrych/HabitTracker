@@ -36,8 +36,14 @@ const middleHabit = props => {
     mid.forEach(habit => {
         if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
             const midHabit = habit.querySelector('.middleHabit')
-            if (midHabit.style.display === 'flex') midHabit.style.display = 'none'
-            else midHabit.style.display = 'flex'
+            const optHabit = habit.querySelector('.options')
+            if (midHabit.style.display === 'flex') {
+                midHabit.style.display = 'none'
+                optHabit.style.display = 'none'
+            }
+            else {
+                midHabit.style.display = 'flex'
+            }
         }
     })
 }
@@ -51,13 +57,10 @@ const handleHabitDone = props => {
                 habit.prog[diff] = true
                 habit.progress++
             }
-            
-            console.log(habit.prog)
-            console.log(habit)
         }
     })
     cookies.set('habits', mid)
-    // console.log(cookies.get('habits'))
+    window.location.reload()
 }
 
 const fillDays = () => {
@@ -116,6 +119,28 @@ const fillDots = props => {
     return days
 }
 
+const handleMore = props => {
+    const opt = document.querySelectorAll('.habit')
+    
+    opt.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            const optHabit = habit.querySelector('.options')
+            if (optHabit.style.display === 'block') optHabit.style.display = 'none'
+            else optHabit.style.display = 'block'
+        }
+    })
+}
+
+const countProgress = props => {
+    let days = countDaysFromStart(props.start) +1
+    let done = 0
+    props.prog.forEach(day => {
+        if (day === true) done++
+    })
+
+    return Math.round(done/days*100)
+}
+
 const chooseConfirm = props => {
     const mid = cookies.get('habits')
     let ret = ''
@@ -130,13 +155,63 @@ const chooseConfirm = props => {
     return ret
 }
 
+const handleRemove = props => {
+    if (window.confirm('Do you really want to delete this habit?')) {
+        let habits = cookies.get('habits')
+        const newHabits = habits.filter(habit => {
+        return habit.title !== props.title
+        })
+        cookies.set('habits', newHabits)
+        window.location.reload()
+    }
+}
+
+const showCheckboxes = props => {
+    let i = 0
+    let checkboxes = ''
+    checkboxes = props.prog.map(day => {
+        i++
+        if (day === true) return <label><input type="checkbox" defaultChecked/>Day {i}</label>
+        else return <label><input type="checkbox"/>Day {i}</label>
+    })
+    return checkboxes
+}
+
+const handleEdit = props => {
+    const edit = document.querySelectorAll('.habit')
+    
+    edit.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            const optHabit = habit.querySelector('.edit')
+            optHabit.style.display = 'block'
+        }
+    })
+    document.querySelector('.body__blurClass').style.display = 'block'
+}
+
+const updateHabit = props => {
+
+}
+
+const closeEdit = props => {
+    const edit = document.querySelectorAll('.habit')
+    
+    edit.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            const optHabit = habit.querySelector('.edit')
+            optHabit.style.display = 'none'
+        }
+    })
+    document.querySelector('.body__blurClass').style.display = 'none'
+}
+
 const MiniTask = props => {
     return (
         <Fragment>
             <div className='habit'>
-                <div  onClick={middleHabit.bind(this, props.data)} className='miniHabit'>
+                <div className='miniHabit'>
                     <div className='miniHabit__txt'>
-                        <div className='miniHabit__txt__title'>{props.title}</div>
+                        <div className='miniHabit__txt__title' onClick={middleHabit.bind(this, props.data)}>{props.title}</div>
                         <div className='miniHabit__txt__description'>{props.description}</div>
                     </div>
                     <div className='miniHabit__progress'>{props.progress}/{props.target}</div>
@@ -149,10 +224,27 @@ const MiniTask = props => {
                             </div>
                             <div className='middleHabit__txt__dots'>
                                 {fillDots(props.data)}
-                                <span>More...</span>
+                                <span onClick={handleMore.bind(this, props.data)}>More...</span>
                             </div>
                         </div>
                         <img src={chooseConfirm(props)} onClick={handleHabitDone.bind(this, props.data)} className='middleHabit__done' alt='done'/>
+                    </div>
+                    <div className='options'>
+                        <div className='options__progress'>Your progress: {countProgress(props.data)}% success</div>
+                        <div className='options__buttons'>
+                            <div className='options__buttons__btn' onClick={handleEdit.bind(this, props.data)}>Edit</div>
+                            <div className='options__buttons__btn' onClick={handleRemove.bind(this, props.data)}>Remove</div>
+                        </div>
+                    </div>
+                </div>
+                <div className='edit'>
+                    <span className='edit__title'>{props.title}</span>
+                    <input className='edit__input' placeholder={props.description} type='text'></input>
+                    <input className='edit__input' placeholder={'Target: ' + props.target} type='number'></input>
+                    <div className='edit__checkboxes'>{showCheckboxes(props.data)}</div>
+                    <div className='edit__buttons'>
+                        <div className='edit__buttons__btn' onClick={updateHabit.bind(this, props.data)}>Save</div>
+                        <div className='edit__buttons__btn' onClick={closeEdit.bind(this, props.data)}>Close</div>
                     </div>
                 </div>
             </div>
