@@ -2,6 +2,9 @@ import React, {Component, Fragment} from 'react'
 // import Cookies from 'universal-cookie'
 import './Menu.sass'
 import menuBtn from './img/menu_btn.png'
+import user from './img/user_icon.png'
+import about from './img/about_icon.png'
+import arrow from './img/arrow-right.png'
 
 // const cookies = new Cookies()
 
@@ -12,19 +15,25 @@ class Menu extends Component {
     }
 
     handleMenuBtn = () => {
-        const menu = document.querySelector('.menuSlider')
-        if (menu.style.display === 'none') menu.style.display = 'block'
-        else menu.style.display = 'none'
+        document.querySelector('.menuSlider').style.display = 'flex'
+        document.querySelector('.body__blurClass').style.display = 'block'  
+        document.querySelector('.menu__arrow').style.display = 'block' 
+        document.querySelector('.menu__Btn').style.display = 'none'
     }
 
-    handleAbout = () => {
-        document.querySelector('.about').style.display = 'block'
+    handleMenuClose = () => {
         document.querySelector('.menuSlider').style.display = 'none'
+        document.querySelector('.body__blurClass').style.display = 'none'
+        document.querySelector('.account').style.display = 'none'
+        document.querySelector('.menu__arrow').style.display = 'none'
+        document.querySelector('.menu__Btn').style.display = 'block'
     }
 
-    handleContact = () => {
-        document.querySelector('.contact').style.display = 'block'
+    handleAccount = () => {
+        document.querySelector('.account').style.display = 'flex'
         document.querySelector('.menuSlider').style.display = 'none'
+        document.querySelector('.menuSlider').style.display = 'none'
+        document.querySelector('.body__blurClass').style.display = 'block'
     }
 
     handleClose = () => {
@@ -34,8 +43,7 @@ class Menu extends Component {
 
     componentDidMount = () => {
         document.querySelector('.menuSlider').style.display = 'none'
-        document.querySelector('.contact').style.display = 'none'
-        document.querySelector('.about').style.display = 'none'
+        document.querySelector('.account').style.display = 'none'
     }
     
     render () {
@@ -44,23 +52,22 @@ class Menu extends Component {
             <div className='menu'>
                 <span className='menu__title'>Habit Tracker</span>
                 <img src={menuBtn} className='menu__Btn' alt='menuBtn' onClick={this.handleMenuBtn} />
+                <img src={arrow} className='menu__arrow' alt='menuBtn' onClick={this.handleMenuClose} />
             </div>
             <div className='menuSlider'>
-                <ul>
-                    <li>Log in</li>
-                    <li onClick={this.handleAbout}>About</li>
-                    <li onClick={this.handleContact}>Contact</li>
-                </ul>
+                <div className='menuSlider__title'>Menu</div>
+                <div className='menuSlider__link'>Completed habits</div>
+                <div className='menuSlider__link'>Deleted habits</div>
+                <div className='menuSlider__break'></div>
+                <div className='menuSlider__link' onClick={this.handleAccount}><img src={user} alt='user' />Your account</div>
+                <div className='menuSlider__link' onClick={this.handleAbout}><img src={about} alt='about' />About application</div>
             </div>
-            <div className='about'>
-                <div className='about__title'>About</div>
-                <div className='about__txt'>Habit Tracker v0.1</div>
-                <div className='about__closeBtn' onClick={this.handleClose}>Close</div>
-            </div>
-            <div className='contact'>
-                <div className='contact__title'>Contact</div>
-                <div className='contact__txt'>wfydrych@gmail.com</div>
-                <div className='contact__closeBtn' onClick={this.handleClose}>Close</div>
+            <div className='account'>
+                <div className='menuSlider__title'><img src={user} alt='user' />Your account</div>
+                <div className='menuSlider__link'>Change password</div>
+                <div className='menuSlider__link'>Delete account</div>
+                <div className='menuSlider__break'></div>
+                <div className='menuSlider__link' onClick={this.handleAbout}><img src={about} alt='about' />About application</div>
             </div>
         </Fragment>
     )}

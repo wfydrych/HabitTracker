@@ -1,0 +1,82 @@
+=inputset
+    position: fixed
+    width: 80vw
+    left: 10vw
+    border: none
+    line-height: 2em
+    border-bottom: 2px solid black
+    background: rgba(0, 0, 0, 0)
+    outline: none
+
+    &::placeholder
+        color: black
+        font-weight: 300
+        margin-left: 5px
+    
+.register
+    display: block
+    width: 100vw
+    height: 100vh
+    box-sizing: border-box
+    background-color: #eeeeee
+    color: black
+
+    &__blue
+        position: fixed
+        top: 0
+        right: 0
+        z-index: 0
+        opacity: 0.5
+
+    &__red
+        position: fixed
+        bottom: -20px
+        left: 0
+        z-index: 0
+        opacity: 0.5
+
+    &__yellow
+        position: fixed
+        bottom: -20px
+        right: 0
+        z-index: 0
+        opacity: 0.5
+    
+    &__title
+        position: fixed
+        top: 20vh
+        left: 10vw
+        font-size: 3em
+        font-family: Montserrat
+        z-index: 5
+
+    &__emailinput
+        top: 35vh
+        +inputset
+
+    &__nameinput
+        top: 45vh
+        +inputset
+
+    &__passinput
+        top: 55vh
+        +inputset
+
+    &__secpassinput
+        top: 65vh
+        +inputset
+
+    &__submit
+        position: fixed
+        width: 70vw
+        left: 15vw
+        bottom: 5vh
+        height: 5vh
+        font-family: Montserrat
+        text-align: center
+        line-height: 4vh
+        color: white
+        border-radius: 15px
+        background-color: #000
+        cursor: pointer
+        outline: none

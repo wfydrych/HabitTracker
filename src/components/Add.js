@@ -87,7 +87,6 @@ class Add extends Component {
             title: this.state.title, 
             start: this.getDate(), 
             target: this.state.days,
-            progress: 0,
             description: this.state.description,
             color: this.state.color,
             prog: [false]

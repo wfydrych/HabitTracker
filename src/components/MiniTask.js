@@ -9,6 +9,10 @@ import dot_grey from './img/dot_grey.png'
 
 const cookies = new Cookies()
 
+let editDescription = ''
+let editTarget = ''
+let editColor = '#81D1FF'
+
 const weekdays = [
     ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
     ['Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo'],
@@ -54,8 +58,10 @@ const handleHabitDone = props => {
         if (habit.title === props.title) {
             const diff = countDaysFromStart(props.start)
             if (habit.prog[diff] !== true) {
-                habit.prog[diff] = true
-                habit.progress++
+                if (habit.prog.length < habit.target +1) {
+                    habit.prog[diff] = true
+                    habit.progress++
+                }
             }
         }
     })
@@ -141,6 +147,14 @@ const countProgress = props => {
     return Math.round(done/days*100)
 }
 
+const countDoneDays = props => {
+    let done = 0
+    props.prog.forEach(day => {
+        if (day === true) done++
+    })
+    return done
+}
+
 const chooseConfirm = props => {
     const mid = cookies.get('habits')
     let ret = ''
@@ -169,10 +183,11 @@ const handleRemove = props => {
 const showCheckboxes = props => {
     let i = 0
     let checkboxes = ''
+    console.log(props.prog)
     checkboxes = props.prog.map(day => {
         i++
-        if (day === true) return <label><input type="checkbox" defaultChecked/>Day {i}</label>
-        else return <label><input type="checkbox"/>Day {i}</label>
+        if (day === true) return <label><input className='checkboxEdit' type="checkbox" defaultChecked/>Day {i}</label>
+        else return <label><input className='checkboxEdit' type="checkbox"/>Day {i}</label>
     })
     return checkboxes
 }
@@ -189,8 +204,80 @@ const handleEdit = props => {
     document.querySelector('.body__blurClass').style.display = 'block'
 }
 
-const updateHabit = props => {
+const handleEditDesc = e => {
+    editDescription = e.target.value
+}
 
+const handleEditTarget = e => {
+    editTarget = e.target.value
+}
+
+const handleEditColor = props => {
+    editColor = props.color
+    let dots = document.querySelectorAll('.edit__colors__dot')
+    dots.forEach(dot => {
+        dot.classList.remove('activeDot')
+    })
+
+    console.log(dots)
+    switch(props.color) {
+        case '#81D1FF': 
+            dots[0].classList.add('activeDot')
+            break
+        case '#FF8181': 
+            dots[1].classList.add('activeDot')
+            break
+        case '#FFDC81': 
+            dots[2].classList.add('activeDot')
+            break
+        case '#B8FF81': 
+            dots[3].classList.add('activeDot')
+            break
+        case '#B181FF': 
+            dots[4].classList.add('activeDot')
+            break
+        default:
+            break
+    }
+}
+
+const updateHabit = props => {
+    let newProgressTable = []
+    const habits = document.querySelectorAll('.habit')
+    habits.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            let selected = habit.querySelectorAll('.checkboxEdit')
+            selected.forEach(select => {
+                if (select.checked) newProgressTable.push(true)
+                else newProgressTable.push(false)
+            })
+        }
+    })
+
+    let habitsList = cookies.get('habits')
+    habitsList = habitsList.map(habit => {
+        if (habit.title === props.title) {
+            habit.prog = newProgressTable
+            if (editTarget !== '') habit.target = editTarget
+            if (editDescription !== '') habit.description = editDescription
+            editTarget = ''
+            editDescription = ''
+            return habit
+        }
+        else return habit
+    })
+
+    cookies.set('habits', habitsList)
+    const edit = document.querySelectorAll('.habit')
+    
+    edit.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            const optHabit = habit.querySelector('.edit')
+            optHabit.style.display = 'none'
+        }
+    })
+    document.querySelector('.body__blurClass').style.display = 'none'
+    window.location.reload()
 }
 
 const closeEdit = props => {
@@ -214,7 +301,7 @@ const MiniTask = props => {
                         <div className='miniHabit__txt__title' onClick={middleHabit.bind(this, props.data)}>{props.title}</div>
                         <div className='miniHabit__txt__description'>{props.description}</div>
                     </div>
-                    <div className='miniHabit__progress'>{props.progress}/{props.target}</div>
+                    <div className='miniHabit__progress'>{countDoneDays(props.data)}/{props.target}</div>
                     <div className='miniHabit__circle'></div>
 
                     <div className='middleHabit'>
@@ -239,9 +326,16 @@ const MiniTask = props => {
                 </div>
                 <div className='edit'>
                     <span className='edit__title'>{props.title}</span>
-                    <input className='edit__input' placeholder={props.description} type='text'></input>
-                    <input className='edit__input' placeholder={'Target: ' + props.target} type='number'></input>
+                    <input className='edit__input' defaultValue={props.description} onChange={handleEditDesc} type='text'></input>
+                    <input className='edit__input' defaultValue={props.target} onChange={handleEditTarget} type='number'></input>
                     <div className='edit__checkboxes'>{showCheckboxes(props.data)}</div>
+                    <div className='edit__colors'>
+                        <div className='edit__colors__dot activeDot' onClick={handleEditColor.bind(this, props.data)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props.data)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props.data)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props.data)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props.data)}></div>
+                    </div>
                     <div className='edit__buttons'>
                         <div className='edit__buttons__btn' onClick={updateHabit.bind(this, props.data)}>Save</div>
                         <div className='edit__buttons__btn' onClick={closeEdit.bind(this, props.data)}>Close</div>

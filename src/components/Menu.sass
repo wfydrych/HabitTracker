@@ -62,39 +62,86 @@
         cursor: pointer
         height: 30px
 
+    &__arrow
+        position: absolute
+        display: none
+        right: 5px
+        top: 5px
+        height: 30px
+        cursor: pointer
+
 .menuSlider
     display: none
     position: fixed
     box-sizing: border-box
     top: 40px
-    left: 0
-    width: 100%
-    height: auto
-    padding: 20px
-    background: #b9b9b9
+    right: 0
+    width: 80vw
+    height: calc(100vh - 40px)
+    padding-bottom: 20px
+    background: #eeeeee
     z-index: 10
+    flex-direction: column
 
-    & ul 
-        list-style-type: none
-        margin: 0
-        padding: 0
+    &__title
+        font-size: 1.5em
+        padding: 5px
+        box-sizing: border-box
+        font-weight: 600
+        background-color: #dddddd
+        line-height: 1.5em
+        margin-bottom: 20px
+        padding-left: 15px
 
-        & li
-            display: block
-            cursor: pointer
-            text-align: center
-            padding: 5px
-            border-bottom: 1px solid #b9b9b9
-            transition: .5s
-            font-weight: 600
-            font-size: 1.2em
-            text-transform: uppercase
+        & img
+            height: 1.2em
+            width: 1.2em
+            transform: translateY(5px)
+            margin-right: 5px
 
-            &:hover
-                border-bottom: 1px solid black
+    &__link
+        font-family: Montserrat
+        font-weight: 600
+        font-size: 1.3em
+        padding: 5px
+        cursor: pointer
+        padding: 5px 20px 5px 20px
 
-.about
-    +menuOpt      
+        & img
+            height: 1.3em
+            width: 1.3em
+            transform: translateY(5px)
+            margin-right: 5px
 
-.contact
-    +menuOpt
+    &__break
+        flex-grow: 1
+
+.account
+    display: none
+    position: fixed
+    box-sizing: border-box
+    top: 40px
+    right: 0
+    width: 80vw
+    height: calc(100vh - 40px)
+    padding-bottom: 20px
+    background: #EEEEEE
+    z-index: 10
+    flex-direction: column
+
+    &__link
+        font-family: Montserrat
+        font-weight: 600
+        font-size: 1.3em
+        padding: 5px
+        cursor: pointer
+        padding: 5px 20px 5px 20px
+
+        & img
+            height: 1.3em
+            width: 1.3em
+            transform: translateY(5px)
+            margin-right: 5px
+
+    &__break
+        flex-grow: 1

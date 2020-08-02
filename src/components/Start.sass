@@ -1,0 +1,71 @@
+=btn
+    position: fixed
+    width: 70vw
+    left: 15vw
+    height: 5vh
+    font-family: Montserrat
+    text-align: center
+    line-height: 5vh
+    color: white
+    border-radius: 15px
+    background-color: #000
+    cursor: pointer
+    
+.start
+    display: none
+    width: 100vw
+    height: 100vh
+    box-sizing: border-box
+    background-color: #eeeeee
+    color: black
+
+    &__blue
+        position: fixed
+        top: 0
+        right: 0
+        z-index: 0
+
+    &__red
+        position: fixed
+        bottom: -20px
+        left: 0
+        z-index: 0
+
+    &__yellow
+        position: fixed
+        bottom: -20px
+        right: 0
+        z-index: 0
+    
+    &__title
+        position: fixed
+        top: 15vh
+        left: 10vw
+        font-size: 5em
+        font-family: Montserrat
+        z-index: 5
+
+    &__subtitle
+        position: fixed
+        top: 30vh
+        left: 12vw
+        font-family: Montserrat
+        z-index: 5
+
+    &__logbtn
+        +btn
+        top: 60vh
+
+    &__signbtn
+        +btn
+        top: 67vh
+
+    &__forgot
+        position: fixed
+        width: 100vw
+        bottom: 10px
+        font-family: Montserrat
+        z-index: 5
+        text-decoration: underline
+        text-align: center
+        cursor: pointer
