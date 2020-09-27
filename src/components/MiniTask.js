@@ -36,6 +36,7 @@ const countDaysFromStart = props => {
 
 const middleHabit = props => {
     const mid = document.querySelectorAll('.habit')
+    console.log(mid)
     
     mid.forEach(habit => {
         if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
@@ -80,7 +81,7 @@ const fillDays = () => {
 
 const fillDots = props => {
     const diff = countDaysFromStart(props.start) + 1
-    let long = props.prog.length
+    let long = props.days.length
     let i = 0
     let dots = ''
 
@@ -149,8 +150,8 @@ const countProgress = props => {
 
 const countDoneDays = props => {
     let done = 0
-    props.prog.forEach(day => {
-        if (day === true) done++
+    props.forEach(day => {
+        if (day.done === true) done++
     })
     return done
 }
@@ -159,14 +160,15 @@ const chooseConfirm = props => {
     const mid = cookies.get('habits')
     let ret = ''
 
-    mid.forEach(habit => {
-        if (habit.title === props.title) {
-            const diff = countDaysFromStart(habit.start)
-            if (habit.prog[diff] === true) ret = done
-            else ret = undone
-        }
-    })
-    return ret
+    // mid.forEach(habit => {
+    //     if (habit.title === props.title) {
+    //         const diff = countDaysFromStart(habit.start)
+    //         if (habit.prog[diff] === true) ret = done
+    //         else ret = undone
+    //     }
+    // })
+    // return ret
+    return undone
 }
 
 const handleRemove = props => {
@@ -183,7 +185,6 @@ const handleRemove = props => {
 const showCheckboxes = props => {
     let i = 0
     let checkboxes = ''
-    console.log(props.prog)
     checkboxes = props.prog.map(day => {
         i++
         if (day === true) return <label><input className='checkboxEdit' type="checkbox" defaultChecked/>Day {i}</label>
@@ -218,8 +219,6 @@ const handleEditColor = props => {
     dots.forEach(dot => {
         dot.classList.remove('activeDot')
     })
-
-    console.log(dots)
     switch(props.color) {
         case '#81D1FF': 
             dots[0].classList.add('activeDot')
@@ -298,31 +297,33 @@ const MiniTask = props => {
             <div className='habit'>
                 <div className='miniHabit'>
                     <div className='miniHabit__txt'>
-                        <div className='miniHabit__txt__title' onClick={middleHabit.bind(this, props.data)}>{props.title}</div>
+                        <div className='miniHabit__txt__title' onClick={middleHabit.bind(this, props)}>{props.title}</div>
                         <div className='miniHabit__txt__description'>{props.description}</div>
                     </div>
-                    <div className='miniHabit__progress'>{countDoneDays(props.data)}/{props.target}</div>
+                    <div className='miniHabit__progress'>{countDoneDays(props.data)}/{props.data.length}</div>
                     <div className='miniHabit__circle'></div>
 
+                    
                     <div className='middleHabit'>
                         <div className='middleHabit__txt'>
                             <div className='middleHabit__txt__week'>
-                                {fillDays()}
+                                {/* {fillDays()} */}
                             </div>
                             <div className='middleHabit__txt__dots'>
-                                {fillDots(props.data)}
-                                <span onClick={handleMore.bind(this, props.data)}>More...</span>
+                                {/* {fillDots(props.data)} */}
+                                <span onClick={handleMore.bind(this, props)}>More...</span>
                             </div>
                         </div>
-                        <img src={chooseConfirm(props)} onClick={handleHabitDone.bind(this, props.data)} className='middleHabit__done' alt='done'/>
+                        <img src={chooseConfirm(props)} onClick={handleHabitDone.bind(this, props)} className='middleHabit__done' alt='done'/>
                     </div>
                     <div className='options'>
-                        <div className='options__progress'>Your progress: {countProgress(props.data)}% success</div>
+                        <div className='options__progress'>Your progress: {/*{countProgress(props)} */}% success</div>
                         <div className='options__buttons'>
-                            <div className='options__buttons__btn' onClick={handleEdit.bind(this, props.data)}>Edit</div>
-                            <div className='options__buttons__btn' onClick={handleRemove.bind(this, props.data)}>Remove</div>
+                            <div className='options__buttons__btn' onClick={handleEdit.bind(this, props)}>Edit</div>
+                            <div className='options__buttons__btn' onClick={handleRemove.bind(this, props)}>Remove</div>
                         </div>
                     </div>
+                    {/*
                 </div>
                 <div className='edit'>
                     <span className='edit__title'>{props.title}</span>
@@ -340,7 +341,9 @@ const MiniTask = props => {
                         <div className='edit__buttons__btn' onClick={updateHabit.bind(this, props.data)}>Save</div>
                         <div className='edit__buttons__btn' onClick={closeEdit.bind(this, props.data)}>Close</div>
                     </div>
+                    */}
                 </div>
+                    
             </div>
         </Fragment>
     )

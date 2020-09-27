@@ -14,8 +14,8 @@ class Add extends Component {
         color: '#81D1FF'
     }
 
-    getDate = () => {
-        const time = new Date()
+    getDate = data => {
+        const time = new Date(data)
         let date = time.getFullYear() + '-'
         if (time.getMonth() < 10) date += '0'
         date += time.getMonth() +1
@@ -83,13 +83,23 @@ class Add extends Component {
     }
 
     handleAddHabit = () => {
+        let days = []
+        const today = new Date()
+
+        for (let i=0; i<this.state.days; i++) {
+            let data = this.getDate(new Date().setDate(today.getDate() + i))
+
+            days[i] = {
+                day: data, 
+                done: false
+            }
+        }
+
         const data = {
             title: this.state.title, 
-            start: this.getDate(), 
-            target: this.state.days,
+            days: days,
             description: this.state.description,
-            color: this.state.color,
-            prog: [false]
+            color: this.state.color
         }
 
         const err = document.querySelector('.err')
@@ -97,7 +107,7 @@ class Add extends Component {
 
         if (data.title.length > 3) 
         {
-            if (data.target > 0)
+            if (data.days.length > 0)
             {
                 let habits = cookies.get('habits')
                 if (habits === undefined) {

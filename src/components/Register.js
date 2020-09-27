@@ -10,7 +10,34 @@ const cookies = new Cookies()
 class Register extends Component {
 
     state = {
-        
+        email: '',
+        name: '',
+        pass: '',
+        passRep: '',
+    }
+
+    handleEmail = e => {
+        this.setState({
+          email: e.target.value
+        })
+    }
+
+    handleName = e => {
+        this.setState({
+          name: e.target.value
+        })
+    }
+
+    handlePass = e => {
+        this.setState({
+          pass: e.target.value
+        })
+    }
+
+    handlePassRep = e => {
+        this.setState({
+          passRep: e.target.value
+        })
     }
     
     render () {
@@ -21,10 +48,10 @@ class Register extends Component {
                 <div className='register__red'><img src={red} alt='red' /></div>
                 <div className='register__yellow'><img src={yellow} alt='yellow' /></div>
                 <div className='register__title'>Sign in!</div>
-                    <input type='text' placeholder='email' className='register__emailinput'/>
-                    <input type='text' placeholder='your name' className='register__nameinput'/>
-                    <input type='password' placeholder='password' className='register__passinput'/>
-                    <input type='password' placeholder='repeat password' className='register__secpassinput'/>
+                    <input type='email' placeholder='email' onChange={this.handleEmail} value={this.state.email} className='register__emailinput'/>
+                    <input type='text' placeholder='your name' onChange={this.handleName} value={this.state.name} className='register__nameinput'/>
+                    <input type='password' placeholder='password' onChange={this.handlePass} value={this.state.pass} className='register__passinput'/>
+                    <input type='password' placeholder='repeat password' onChange={this.handlePassRep} value={this.state.passRep} className='register__secpassinput'/>
                     <button type='submit' className='register__submit'>Register</button>
             </div>
         </Fragment>
