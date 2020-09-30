@@ -23,6 +23,17 @@ const weekdays = [
     ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 ]
 
+const getDate = () => {
+    const time = new Date()
+    let date = time.getFullYear() + '-'
+    if (time.getMonth() < 10) date += '0'
+    date += time.getMonth() +1
+    date += '-'
+    if (time.getDate() < 10) date += '0'
+    date += time.getDate()
+    return date
+}
+
 const countDaysFromStart = props => {
 
     let dateStart = new Date(props)
@@ -36,7 +47,6 @@ const countDaysFromStart = props => {
 
 const middleHabit = props => {
     const mid = document.querySelectorAll('.habit')
-    console.log(mid)
     
     mid.forEach(habit => {
         if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
@@ -157,18 +167,17 @@ const countDoneDays = props => {
 }
 
 const chooseConfirm = props => {
-    const mid = cookies.get('habits')
-    let ret = ''
-
-    // mid.forEach(habit => {
-    //     if (habit.title === props.title) {
-    //         const diff = countDaysFromStart(habit.start)
-    //         if (habit.prog[diff] === true) ret = done
-    //         else ret = undone
-    //     }
-    // })
-    // return ret
-    return undone
+    let ret = undone
+    const today = getDate()
+    props.data.forEach(day => {
+        if (day.day === today)
+        {
+            if (day.done) ret = done
+            else ret = undone
+        }
+        else ret = undone
+    })
+    return ret
 }
 
 const handleRemove = props => {

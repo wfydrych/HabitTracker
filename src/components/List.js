@@ -12,19 +12,19 @@ const habits =  [
         color: '#FFDC81',
         days: [
             {
-                day: '2020-08-18', 
+                day: '2020-09-27', 
                 done: false
             },
             {
-                day: '2020-08-19', 
+                day: '2020-09-28', 
                 done: true
             },
             {
-                day: '2020-08-20', 
+                day: '2020-09-29', 
                 done: false
             },
             {
-                day: '2020-08-21', 
+                day: '2020-09-30', 
                 done: true
             },
         ]
@@ -35,15 +35,15 @@ const habits =  [
         color: '#FF8181',
         days: [
             {
-                day: '2020-08-18', 
+                day: '2020-09-28', 
                 done: true
             },
             {
-                day: '2020-08-19', 
+                day: '2020-09-29', 
                 done: false
             },
             {
-                day: '2020-08-20', 
+                day: '2020-09-30', 
                 done: false
             },
         ]
@@ -54,19 +54,19 @@ const habits =  [
         color: '#81D1FF',
         days: [
             {
-                day: '2020-08-18', 
+                day: '2020-09-27', 
                 done: true
             },
             {
-                day: '2020-08-19', 
+                day: '2020-09-28', 
                 done: false
             },
             {
-                day: '2020-08-20', 
+                day: '2020-09-29', 
                 done: true
             },
             {
-                day: '2020-08-21', 
+                day: '2020-09-30', 
                 done: true
             },
         ]
@@ -77,23 +77,23 @@ const habits =  [
         color: '#B8FF81',
         days: [
             {
-                day: '2020-08-18', 
+                day: '2020-09-26', 
                 done: true
             },
             {
-                day: '2020-08-19', 
+                day: '2020-09-27', 
                 done: false
             },
             {
-                day: '2020-08-20', 
+                day: '2020-09-28', 
                 done: true
             },
             {
-                day: '2020-08-21', 
+                day: '2020-09-29', 
                 done: false
             },
             {
-                day: '2020-08-22', 
+                day: '2020-09-30', 
                 done: true
             },
         ]
