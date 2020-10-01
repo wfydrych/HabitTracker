@@ -26,7 +26,18 @@ const weekdays = [
 const getDate = () => {
     const time = new Date()
     let date = time.getFullYear() + '-'
-    if (time.getMonth() < 10) date += '0'
+    if (time.getMonth() < 9) date += '0'
+    date += time.getMonth() +1
+    date += '-'
+    if (time.getDate() < 10) date += '0'
+    date += time.getDate()
+    return date
+}
+
+const getExactDate = data => {
+    const time = new Date(data)
+    let date = time.getFullYear() + '-'
+    if (time.getMonth() < 9) date += '0'
     date += time.getMonth() +1
     date += '-'
     if (time.getDate() < 10) date += '0'
@@ -65,19 +76,25 @@ const middleHabit = props => {
 
 const handleHabitDone = props => {
     let mid = cookies.get('habits')
-    mid.forEach(habit => {
+    mid = mid.map(habit => {
         if (habit.title === props.title) {
-            const diff = countDaysFromStart(props.start)
-            if (habit.prog[diff] !== true) {
-                if (habit.prog.length < habit.target +1) {
-                    habit.prog[diff] = true
-                    habit.progress++
+            const today = getDate()
+            let editedHabit = habit
+
+            editedHabit.days = habit.days.map(day => {
+                if (day.day === today) {
+                    day.done = true
                 }
-            }
+                return day
+
+            })
+            return editedHabit
         }
+        else return habit
     })
+    console.log(mid)
     cookies.set('habits', mid)
-    window.location.reload()
+    // window.location.reload()
 }
 
 const fillDays = () => {
@@ -90,50 +107,26 @@ const fillDays = () => {
 }
 
 const fillDots = props => {
-    const diff = countDaysFromStart(props.start) + 1
-    let long = props.days.length
-    let i = 0
-    let dots = ''
+    let table = []
+    const today = new Date()
 
-    if (diff > long) {
-        if (long > 6) {
-            dots = props.prog.slice(long-6)
-            dots.push(false)
-        }
-        
-        else {
-            dots = props.prog
-            dots.push(false)
-            i = 7 - dots.length
-            for (let x = 0; x < i; x++) {
-                dots.unshift(false)
+    for (let i=0; i<7; i++) {
+        let data = getExactDate(new Date().setDate(today.getDate() - i))
+        props.forEach(day => {
+            if (day.day === data) {
+                if (day.done) table.unshift('2')
+                else table.unshift('1')
             }
-        }
+        })
+        if (table.length < i+1) table.unshift('0')
     }
 
-    else {
-        if (long > 7) dots = props.prog.slice(long-7)
-        
-        else {
-            dots = props.prog
-            i = 7 - dots.length
-            for (let x = 0; x < i; x++) {
-                dots.unshift(false)
-            }
-        }
-    }   
-
-    const days = dots.map(day => {
-        if (i !== 0) {
-            i--
-            return <img src={dot_grey} alt="dot"/>
-        }
-        else {
-            if (day === true) return <img src={dot_done} alt="dot"/>
-            else return <img src={dot_undone} alt="dot"/>
-        }
+    let ret = table.map(day => {
+        if (day === '2') return <img src={dot_done} alt="dot"/>
+        else if (day === '1') return <img src={dot_undone} alt="dot"/>
+        else return <img src={dot_grey} alt="dot"/>
     })
-    return days
+    return ret
 }
 
 const handleMore = props => {
@@ -149,10 +142,10 @@ const handleMore = props => {
 }
 
 const countProgress = props => {
-    let days = countDaysFromStart(props.start) +1
+    let days = props.length
     let done = 0
-    props.prog.forEach(day => {
-        if (day === true) done++
+    props.forEach(day => {
+        if (day.done === true) done++
     })
 
     return Math.round(done/days*100)
@@ -316,17 +309,17 @@ const MiniTask = props => {
                     <div className='middleHabit'>
                         <div className='middleHabit__txt'>
                             <div className='middleHabit__txt__week'>
-                                {/* {fillDays()} */}
+                                {fillDays()}
                             </div>
                             <div className='middleHabit__txt__dots'>
-                                {/* {fillDots(props.data)} */}
+                                {fillDots(props.data)}
                                 <span onClick={handleMore.bind(this, props)}>More...</span>
                             </div>
                         </div>
                         <img src={chooseConfirm(props)} onClick={handleHabitDone.bind(this, props)} className='middleHabit__done' alt='done'/>
                     </div>
                     <div className='options'>
-                        <div className='options__progress'>Your progress: {/*{countProgress(props)} */}% success</div>
+                        <div className='options__progress'>Your progress: {countProgress(props.data)}% success</div>
                         <div className='options__buttons'>
                             <div className='options__buttons__btn' onClick={handleEdit.bind(this, props)}>Edit</div>
                             <div className='options__buttons__btn' onClick={handleRemove.bind(this, props)}>Remove</div>

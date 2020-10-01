@@ -35,15 +35,15 @@ const habits =  [
         color: '#FF8181',
         days: [
             {
-                day: '2020-09-28', 
+                day: '2020-09-29', 
                 done: true
             },
             {
-                day: '2020-09-29', 
+                day: '2020-09-30', 
                 done: false
             },
             {
-                day: '2020-09-30', 
+                day: '2020-10-01', 
                 done: false
             },
         ]
@@ -100,7 +100,7 @@ const habits =  [
     },
 ]
 
-cookies.set('habits', habits)
+// cookies.set('habits', habits)
 
 class List extends Component {
 
