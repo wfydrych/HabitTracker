@@ -17,7 +17,7 @@ class Add extends Component {
     getDate = data => {
         const time = new Date(data)
         let date = time.getFullYear() + '-'
-        if (time.getMonth() < 10) date += '0'
+        if (time.getMonth() < 9) date += '0'
         date += time.getMonth() +1
         date += '-'
         if (time.getDate() < 10) date += '0'
