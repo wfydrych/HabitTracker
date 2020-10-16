@@ -178,7 +178,6 @@ const handleRemove = props => {
         if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
             const optHabit = habit.querySelector('.delete')
             optHabit.style.display = 'block'
-            console.log(optHabit)
         }
     })
     document.querySelector('.body__blurClass').style.display = 'block'
@@ -220,6 +219,7 @@ const handleEditDesc = e => {
 
 const handleEditColor = props => {
     editColor = props.color
+    console.log(props)
     let dots = document.querySelectorAll('.edit__colors__dot')
     dots.forEach(dot => {
         dot.classList.remove('activeDot')
@@ -293,6 +293,18 @@ const closeEdit = props => {
     document.querySelector('.body__blurClass').style.display = 'none'
 }
 
+const closeDelete = props => {
+    const del = document.querySelectorAll('.habit')
+    
+    del.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            const optHabit = habit.querySelector('.delete')
+            optHabit.style.display = 'none'
+        }
+    })
+    document.querySelector('.body__blurClass').style.display = 'none'
+}
+
 const MiniTask = props => {
     return (
         <Fragment>
@@ -344,7 +356,11 @@ const MiniTask = props => {
                     </div>
                 </div>
                 <div className='delete'>
-
+                    <div className='delete__title'>Are you sure?</div>
+                    <div className='delete__options'>
+                        <div className='delete__options__btn' onClick={confirmRemove.bind(this, props)}>Yes</div>
+                        <div className='delete__options__btn' onClick={closeDelete.bind(this, props)}>No</div>
+                    </div>
                 </div>
             </div>
         </Fragment>
