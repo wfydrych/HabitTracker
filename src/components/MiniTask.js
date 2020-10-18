@@ -217,14 +217,22 @@ const handleEditDesc = e => {
     editDescription = e.target.value
 }
 
-const handleEditColor = props => {
-    editColor = props.color
-    console.log(props)
+const handleEditColor = (color, props) => {
+    editColor = color
     let dots = document.querySelectorAll('.edit__colors__dot')
     dots.forEach(dot => {
         dot.classList.remove('activeDot')
     })
-    switch(props.color) {
+
+    const habit = document.querySelectorAll('.habit')
+    
+    habit.forEach(habit => {
+        if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
+            console.log(habit.childNodes[1].childNodes[3].childNodes)
+        }
+    })
+
+    switch(editColor) {
         case '#81D1FF': 
             dots[0].classList.add('activeDot')
             break
@@ -344,11 +352,11 @@ const MiniTask = props => {
                     <input className='edit__input' defaultValue={props.description} onChange={handleEditDesc} type='text'></input>
                     <div className='edit__checkboxes'>{showCheckboxes(props.data)}</div>
                     <div className='edit__colors'>
-                        <div className='edit__colors__dot activeDot' onClick={handleEditColor.bind(this, props)}></div>
-                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props)}></div>
-                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props)}></div>
-                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props)}></div>
-                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, props)}></div>
+                        <div className='edit__colors__dot activeDot' onClick={handleEditColor.bind(this, '#81D1FF', props)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, '#FF8181', props)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, '#FFDC81', props)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, '#B8FF81', props)}></div>
+                        <div className='edit__colors__dot' onClick={handleEditColor.bind(this, '#B181FF', props)}></div>
                     </div>
                     <div className='edit__buttons'>
                         <div className='edit__buttons__btn' onClick={updateHabit.bind(this, props)}>Save</div>
