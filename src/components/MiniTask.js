@@ -228,29 +228,27 @@ const handleEditColor = (color, props) => {
     
     habit.forEach(habit => {
         if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
-            console.log(habit.childNodes[1].childNodes[3].childNodes)
+            switch(editColor) {
+                case '#81D1FF': 
+                    habit.childNodes[1].childNodes[3].childNodes[0].classList.add('activeDot')
+                    break
+                case '#FF8181': 
+                    habit.childNodes[1].childNodes[3].childNodes[1].classList.add('activeDot')
+                    break
+                case '#FFDC81': 
+                    habit.childNodes[1].childNodes[3].childNodes[2].classList.add('activeDot')
+                    break
+                case '#B8FF81': 
+                    habit.childNodes[1].childNodes[3].childNodes[3].classList.add('activeDot')
+                    break
+                case '#B181FF': 
+                    habit.childNodes[1].childNodes[3].childNodes[4].classList.add('activeDot')
+                    break
+                default:
+                    break
+            }
         }
     })
-
-    switch(editColor) {
-        case '#81D1FF': 
-            dots[0].classList.add('activeDot')
-            break
-        case '#FF8181': 
-            dots[1].classList.add('activeDot')
-            break
-        case '#FFDC81': 
-            dots[2].classList.add('activeDot')
-            break
-        case '#B8FF81': 
-            dots[3].classList.add('activeDot')
-            break
-        case '#B181FF': 
-            dots[4].classList.add('activeDot')
-            break
-        default:
-            break
-    }
 }
 
 const updateHabit = props => {
@@ -269,8 +267,14 @@ const updateHabit = props => {
     let habitsList = cookies.get('habits')
     habitsList = habitsList.map(habit => {
         if (habit.title === props.title) {
-            habit.prog = newProgressTable
-            editDescription = ''
+            let x = 0
+            habit.days = habit.days.map(day => {
+                day.done = newProgressTable[x]
+                x++
+                return day
+            })
+            if (editDescription !== '') habit.description = editDescription
+            habit.color = editColor
             return habit
         }
         else return habit
