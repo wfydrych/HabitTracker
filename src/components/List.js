@@ -100,6 +100,20 @@ const habits =  [
     },
 ]
 
+const testhabit = [
+    {
+        title: 'No habits!',
+        description: 'Add your first habit :)',
+        color: '#81D1FF',
+        days: [
+            {
+                day: '2012-12-21', 
+                done: false
+            },
+        ]
+    },
+]
+
 // cookies.set('habits', habits)
 
 class List extends Component {
@@ -131,16 +145,15 @@ class List extends Component {
 
     createHabitList() {
         let habits = cookies.get('habits')
-        if (habits !== undefined) {
-            if (habits.length !== 0) {
-                habits = habits.map(habit => {
-                    return <MiniTask key={habit.title} data={habit.days} title={habit.title} description={habit.description} color={habit.color}></MiniTask>
-                })
-                return habits
-            }
-            else return null
+        if (habits === 'undefined' || undefined || habits.length===0) {
+            habits = testhabit
+            cookies.set('habits', testhabit)
         }
-        else return null
+
+        habits = habits.map(habit => {
+            return <MiniTask key={habit.title} data={habit.days} title={habit.title} description={habit.description} color={habit.color}></MiniTask>
+        })
+        return habits
     }
     
     render () {

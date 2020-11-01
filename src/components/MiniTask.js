@@ -124,6 +124,7 @@ const fillDots = props => {
         else if (day === '1') return <img src={dot_undone} alt="dot"/>
         else return <img src={dot_grey} alt="dot"/>
     })
+
     return ret
 }
 
@@ -133,8 +134,14 @@ const handleMore = props => {
     opt.forEach(habit => {
         if (habit.childNodes[0].firstChild.firstChild.innerText === props.title) {
             const optHabit = habit.querySelector('.options')
-            if (optHabit.style.display === 'block') optHabit.style.display = 'none'
-            else optHabit.style.display = 'block'
+            if (optHabit.style.display === 'block') {
+                optHabit.style.display = 'none'
+                habit.childNodes[0].childNodes[3].children[0].childNodes[1].children[7].innerText = 'More...'
+            }
+            else {
+                optHabit.style.display = 'block'
+                habit.childNodes[0].childNodes[3].children[0].childNodes[1].children[7].innerText = 'Less...'
+            }
         }
     })
 }
@@ -158,7 +165,7 @@ const countDoneDays = props => {
 }
 
 const chooseConfirm = props => {
-    let ret = undone
+    let ret = ''
     const today = getDate()
     props.data.forEach(day => {
         if (day.day === today)
@@ -166,7 +173,6 @@ const chooseConfirm = props => {
             if (day.done) ret = done
             else ret = undone
         }
-        else ret = undone
     })
     return ret
 }
