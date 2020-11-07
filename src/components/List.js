@@ -129,6 +129,17 @@ class List extends Component {
         return done
     }
 
+    getDate = () => {
+        const time = new Date()
+        let date = time.getFullYear() + '-'
+        if (time.getMonth() < 9) date += '0'
+        date += time.getMonth() +1
+        date += '-'
+        if (time.getDate() < 10) date += '0'
+        date += time.getDate()
+        return date
+    }
+
     componentDidMount() {
         const circles = document.querySelectorAll('.miniHabit__circle')
         let i = 0
@@ -145,14 +156,30 @@ class List extends Component {
 
     createHabitList() {
         let habits = cookies.get('habits')
+        let habitsDone = cookies.get('habitsDone')
         if (habits === 'undefined' || undefined || habits.length===0) {
             habits = testhabit
             cookies.set('habits', testhabit)
         }
 
+        if (habitsDone === 'undefined' || undefined || habits.length===0) {
+            habitsDone = []
+        }
+        
+        let habitsInProgress = []
+
         habits = habits.map(habit => {
-            return <MiniTask key={habit.title} data={habit.days} title={habit.title} description={habit.description} color={habit.color}></MiniTask>
+            if (!(habit.days[habit.days.length-1].day < this.getDate())) {
+                habitsInProgress.push(habit)
+                return <MiniTask key={habit.title} data={habit.days} title={habit.title} description={habit.description} color={habit.color}></MiniTask>
+            }
+
+            else habitsDone.push(habit)
         })
+        cookies.set('habits', habitsInProgress)
+        cookies.set('habitsDone', habitsDone)
+        console.log(cookies.get('habitsDone'))
+
         return habits
     }
     

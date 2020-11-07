@@ -56,8 +56,8 @@ class Menu extends Component {
             </div>
             <div className='menuSlider'>
                 <div className='menuSlider__title'>Menu</div>
+                <div className='menuSlider__link'>Running habits</div>
                 <div className='menuSlider__link'>Completed habits</div>
-                <div className='menuSlider__link'>Deleted habits</div>
                 <div className='menuSlider__break'></div>
                 <div className='menuSlider__link' onClick={this.handleAccount}><img src={user} alt='user' />Your account</div>
                 <div className='menuSlider__link' onClick={this.handleAbout}><img src={about} alt='about' />About application</div>
