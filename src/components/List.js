@@ -165,7 +165,7 @@ class List extends Component {
         if (habitsDone === 'undefined' || undefined || habits.length===0) {
             habitsDone = []
         }
-        
+
         let habitsInProgress = []
 
         habits = habits.map(habit => {
@@ -178,7 +178,6 @@ class List extends Component {
         })
         cookies.set('habits', habitsInProgress)
         cookies.set('habitsDone', habitsDone)
-        console.log(cookies.get('habitsDone'))
 
         return habits
     }

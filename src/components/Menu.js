@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react'
-// import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie'
 import './Menu.sass'
+import CompletedTask from './CompletedTask'
 import menuBtn from './img/menu_btn.png'
 import user from './img/user_icon.png'
 import about from './img/about_icon.png'
 import arrow from './img/arrow-right.png'
 
-// const cookies = new Cookies()
+const cookies = new Cookies()
 
 class Menu extends Component {
 
@@ -32,13 +33,28 @@ class Menu extends Component {
     handleAccount = () => {
         document.querySelector('.account').style.display = 'flex'
         document.querySelector('.menuSlider').style.display = 'none'
-        document.querySelector('.menuSlider').style.display = 'none'
         document.querySelector('.body__blurClass').style.display = 'block'
     }
 
     handleClose = () => {
         document.querySelector('.contact').style.display = 'none'
         document.querySelector('.about').style.display = 'none'
+    }
+
+    showCompletedHabits = () => {
+        const habitsWindow = document.querySelector('.menuSlider__completedHabits')
+        if (habitsWindow.style.display === 'block') habitsWindow.style.display = 'none'
+        else habitsWindow.style.display = 'block'
+    }
+
+    handleCompletedHabits = () => {
+        let habits = cookies.get('habitsDone')
+
+        habits = habits.map(habit => {
+            return <CompletedTask habit={habit}></CompletedTask>
+        })
+
+        return habits
     }
 
     componentDidMount = () => {
@@ -56,8 +72,8 @@ class Menu extends Component {
             </div>
             <div className='menuSlider'>
                 <div className='menuSlider__title'>Menu</div>
-                <div className='menuSlider__link'>Running habits</div>
-                <div className='menuSlider__link'>Completed habits</div>
+                <div className='menuSlider__link' onClick={this.showCompletedHabits}>Completed habits</div>
+                <div className='menuSlider__completedHabits'>{this.handleCompletedHabits()}</div>
                 <div className='menuSlider__break'></div>
                 <div className='menuSlider__link' onClick={this.handleAccount}><img src={user} alt='user' />Your account</div>
                 <div className='menuSlider__link' onClick={this.handleAbout}><img src={about} alt='about' />About application</div>
