@@ -17,7 +17,7 @@ const CompletedTask = props => {
         <Fragment>
             <div className='task'>
                 <div className='task__title'>{habit.title} </div>
-                <div className='task__info'>Finished {habit.days[habit.days.length-1].day}</div>
+                <div className='task__info'>Finished: {habit.days[habit.days.length-1].day}</div>
                 <div className='task__info'>Success: {countDone(habit.days)}/{habit.days.length} ({Math.round(countDone(habit.days)/habit.days.length*100)}%)</div>
             </div>
         </Fragment>

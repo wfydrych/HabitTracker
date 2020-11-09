@@ -12,6 +12,28 @@ class Start extends Component {
     state = {
         
     }
+
+    resetView = () => {
+        document.querySelector('.body__app').style.display = 'none'
+        document.querySelector('.start').style.display = 'none'
+        document.querySelector('.login').style.display = 'none'
+        document.querySelector('.register').style.display = 'none'
+    }
+
+    handleTry = () => {
+        this.resetView()
+        document.querySelector('.body__app').style.display = 'block'
+    }
+
+    handleLogin = () => {
+        this.resetView()
+        document.querySelector('.login').style.display = 'block'
+    }
+
+    handleRegister = () => {
+        this.resetView()
+        document.querySelector('.register').style.display = 'block'
+    }
     
     render () {
     return (
@@ -22,8 +44,9 @@ class Start extends Component {
                 <div className='start__yellow'><img src={yellow} alt='yellow' /></div>
                 <div className='start__title'>Habits</div>
                 <div className='start__subtitle'>Let's make some habits!</div>
-                <div className='start__logbtn'>Log in</div>
-                <div className='start__signbtn'>Sign in</div>
+                <div className='start__trybtn' onClick={this.handleTry}>Try without account</div>
+                <div className='start__logbtn' onClick={this.handleLogin}>Log in</div>
+                <div className='start__signbtn' onClick={this.handleRegister}>Sign in</div>
                 <div className='start__forgot'>Forgot password?</div>
             </div>
         </Fragment>
