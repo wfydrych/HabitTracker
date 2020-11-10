@@ -44,16 +44,16 @@ const getExactDate = data => {
     return date
 }
 
-const countDaysFromStart = props => {
+// const countDaysFromStart = props => {
 
-    let dateStart = new Date(props)
-    let dateToday = new Date()
-    dateStart.setHours(0)
-    dateToday.setHours(0)
-    dateToday.setMinutes(0)
-    dateToday.setSeconds(0)
-    return Math.round((dateToday.getTime() - dateStart.getTime()) / (1000 * 3600 * 24))
-}
+//     let dateStart = new Date(props)
+//     let dateToday = new Date()
+//     dateStart.setHours(0)
+//     dateToday.setHours(0)
+//     dateToday.setMinutes(0)
+//     dateToday.setSeconds(0)
+//     return Math.round((dateToday.getTime() - dateStart.getTime()) / (1000 * 3600 * 24))
+// }
 
 const middleHabit = props => {
     const mid = document.querySelectorAll('.habit')
@@ -99,7 +99,7 @@ const fillDays = () => {
     let dateToday = new Date()
     let day = dateToday.getDay()
     const daysTable = weekdays[day].map(day => {
-        return <span>{day}</span>
+        return <span key={day}>{day}</span>
     })
     return daysTable
 }

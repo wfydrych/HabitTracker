@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from 'react'
-import Cookies from 'universal-cookie'
+// import Cookies from 'universal-cookie'
 import './Register.sass'
 import blue from './img/blue_vect.png'
 import red from './img/red_vect.png'
 import yellow from './img/yellow_vect.png'
 
-const cookies = new Cookies()
+// const cookies = new Cookies()
 
 class Register extends Component {
 

@@ -16,23 +16,23 @@ class Menu extends Component {
     }
 
     handleMenuBtn = () => {
-        document.querySelector('.menuSlider').style.display = 'flex'
+        document.querySelector('.menuSlider').style.transform = 'translateX(0vw)'
         document.querySelector('.body__blurClass').style.display = 'block'  
         document.querySelector('.menu__arrow').style.display = 'block' 
         document.querySelector('.menu__Btn').style.display = 'none'
     }
 
     handleMenuClose = () => {
-        document.querySelector('.menuSlider').style.display = 'none'
+        document.querySelector('.menuSlider').style.transform = 'translateX(80vw)'
         document.querySelector('.body__blurClass').style.display = 'none'
-        document.querySelector('.account').style.display = 'none'
+        document.querySelector('.account').style.transform = 'translateX(80vw)'
         document.querySelector('.menu__arrow').style.display = 'none'
         document.querySelector('.menu__Btn').style.display = 'block'
     }
 
     handleAccount = () => {
-        document.querySelector('.account').style.display = 'flex'
-        document.querySelector('.menuSlider').style.display = 'none'
+        document.querySelector('.account').style.transform = 'translateX(0vw)'
+        document.querySelector('.menuSlider').style.transform = 'translateX(80vw)'
         document.querySelector('.body__blurClass').style.display = 'block'
     }
 
@@ -51,15 +51,10 @@ class Menu extends Component {
         let habits = cookies.get('habitsDone')
 
         habits = habits.map(habit => {
-            return <CompletedTask habit={habit}></CompletedTask>
+            return <CompletedTask key={habit.title} habit={habit}></CompletedTask>
         })
 
         return habits
-    }
-
-    componentDidMount = () => {
-        document.querySelector('.menuSlider').style.display = 'none'
-        document.querySelector('.account').style.display = 'none'
     }
     
     render () {

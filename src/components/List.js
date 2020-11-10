@@ -5,100 +5,31 @@ import MiniTask from './MiniTask'
 
 const cookies = new Cookies()
 
-const habits =  [
-    {
-        title: 'Reading',
-        description: 'At least 30 pages a day',
-        color: '#FFDC81',
-        days: [
-            {
-                day: '2020-09-27', 
-                done: false
-            },
-            {
-                day: '2020-09-28', 
-                done: true
-            },
-            {
-                day: '2020-09-29', 
-                done: false
-            },
-            {
-                day: '2020-09-30', 
-                done: true
-            },
-        ]
-    },
-    {
-        title: 'Workout',
-        description: 'You can do it!',
-        color: '#FF8181',
-        days: [
-            {
-                day: '2020-09-29', 
-                done: true
-            },
-            {
-                day: '2020-09-30', 
-                done: false
-            },
-            {
-                day: '2020-10-01', 
-                done: false
-            },
-        ]
-    },
-    {
-        title: 'Play the piano',
-        description: 'Be a Mozart, lol',
-        color: '#81D1FF',
-        days: [
-            {
-                day: '2020-09-27', 
-                done: true
-            },
-            {
-                day: '2020-09-28', 
-                done: false
-            },
-            {
-                day: '2020-09-29', 
-                done: true
-            },
-            {
-                day: '2020-09-30', 
-                done: true
-            },
-        ]
-    },
-    {
-        title: 'Learn new language',
-        description: 'Be a polyglot in 1 year',
-        color: '#B8FF81',
-        days: [
-            {
-                day: '2020-09-26', 
-                done: true
-            },
-            {
-                day: '2020-09-27', 
-                done: false
-            },
-            {
-                day: '2020-09-28', 
-                done: true
-            },
-            {
-                day: '2020-09-29', 
-                done: false
-            },
-            {
-                day: '2020-09-30', 
-                done: true
-            },
-        ]
-    },
-]
+// const habits =  [
+//     {
+//         title: 'Reading',
+//         description: 'At least 30 pages a day',
+//         color: '#FFDC81',
+//         days: [
+//             {
+//                 day: '2020-09-27', 
+//                 done: false
+//             },
+//             {
+//                 day: '2020-09-28', 
+//                 done: true
+//             },
+//             {
+//                 day: '2020-09-29', 
+//                 done: false
+//             },
+//             {
+//                 day: '2020-09-30', 
+//                 done: true
+//             },
+//         ]
+//     },
+// ]
 
 const testhabit = [
     {
@@ -175,6 +106,7 @@ class List extends Component {
             }
 
             else habitsDone.push(habit)
+            return null
         })
         cookies.set('habits', habitsInProgress)
         cookies.set('habitsDone', habitsDone)
