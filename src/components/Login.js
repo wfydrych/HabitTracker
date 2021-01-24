@@ -1,11 +1,12 @@
 import React, {Component, Fragment} from 'react'
-// import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie'
 import './Login.sass'
 import blue from './img/blue_vect.png'
 import red from './img/red_vect.png'
 import yellow from './img/yellow_vect.png'
+import arrow from './img/arrow-left.png'
 
-// const cookies = new Cookies()
+const cookies = new Cookies()
 
 class Login extends Component {
 
@@ -26,10 +27,16 @@ class Login extends Component {
         })
     }
 
+    handleBack = () => {
+        cookies.remove('start')
+        window.location.reload()
+    }
+
     render () {
     return (
         <Fragment>
             <div className='login'>
+                <img className='login__arrow' onClick={this.handleBack} src={arrow} alt='arrow' />
                 <div className='login__blue'><img src={blue} alt='blue' /></div>
                 <div className='login__red'><img src={red} alt='red' /></div>
                 <div className='login__yellow'><img src={yellow} alt='yellow' /></div>

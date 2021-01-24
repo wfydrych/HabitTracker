@@ -5,32 +5,6 @@ import MiniTask from './MiniTask'
 
 const cookies = new Cookies()
 
-// const habits =  [
-//     {
-//         title: 'Reading',
-//         description: 'At least 30 pages a day',
-//         color: '#FFDC81',
-//         days: [
-//             {
-//                 day: '2020-09-27', 
-//                 done: false
-//             },
-//             {
-//                 day: '2020-09-28', 
-//                 done: true
-//             },
-//             {
-//                 day: '2020-09-29', 
-//                 done: false
-//             },
-//             {
-//                 day: '2020-09-30', 
-//                 done: true
-//             },
-//         ]
-//     },
-// ]
-
 const testhabit = [
     {
         title: 'No habits!',
@@ -38,14 +12,12 @@ const testhabit = [
         color: '#81D1FF',
         days: [
             {
-                day: '2012-12-21', 
+                day: '2050-12-21', 
                 done: false
             },
         ]
     },
 ]
-
-// cookies.set('habits', habits)
 
 class List extends Component {
 
@@ -88,12 +60,12 @@ class List extends Component {
     createHabitList() {
         let habits = cookies.get('habits')
         let habitsDone = cookies.get('habitsDone')
-        if (habits === 'undefined' || undefined || habits.length===0) {
+        if (habits === 'undefined' || habits === undefined || habits.length===0) {
             habits = testhabit
             cookies.set('habits', testhabit)
         }
 
-        if (habitsDone === 'undefined' || undefined || habits.length===0) {
+        if (habitsDone === 'undefined' || habitsDone === undefined || habits.length===0) {
             habitsDone = []
         }
 

@@ -50,11 +50,17 @@ class Menu extends Component {
     handleCompletedHabits = () => {
         let habits = cookies.get('habitsDone')
 
-        habits = habits.map(habit => {
-            return <CompletedTask key={habit.title} habit={habit}></CompletedTask>
-        })
+        if (habits === 'undefined' || habits === undefined || habits.length===0) {
+            return
+        }
 
-        return habits
+        else {
+            habits = habits.map(habit => {
+                return <CompletedTask key={habit.title} habit={habit}></CompletedTask>
+            })
+    
+            return habits
+        }
     }
     
     render () {
