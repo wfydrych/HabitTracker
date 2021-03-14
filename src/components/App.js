@@ -17,7 +17,7 @@ class App extends Component {
 
   componentDidMount() {
     let start = cookies.get('start')
-        if (start === 'undefined' || start === undefined || start.length===0) {
+        if (start === 'undefined' || start === undefined || start.length === 0) {
             document.querySelector('.body__app').style.display = 'none'
             document.querySelector('.start').style.display = 'block'
             cookies.set('start', true)

@@ -165,7 +165,7 @@ const countDoneDays = props => {
 }
 
 const chooseConfirm = props => {
-    let ret = ''
+    let ret = undone
     const today = getDate()
     props.data.forEach(day => {
         if (day.day === today)
